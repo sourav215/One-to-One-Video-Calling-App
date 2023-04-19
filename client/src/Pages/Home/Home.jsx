@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./Home.module.css";
-import { Box, Button, Flex, Stack, Text, Link, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, Flex, Stack, Text, Link } from "@chakra-ui/react";
 import { ArrowForwardIcon, CalendarIcon } from "@chakra-ui/icons";
 
 function Home() {
@@ -30,7 +29,7 @@ function Home() {
     <Flex
       align={"center"}
       justifyContent={"center"}
-    //   marginTop={"100px"}
+      //   marginTop={"100px"}
       bg={"gray.50"}
       h={"90vh"}
     >
@@ -45,8 +44,8 @@ function Home() {
             leftIcon={<CalendarIcon />}
             colorScheme="teal"
             variant="solid"
-            onClick={()=>{
-                navigate("/schedule")
+            onClick={() => {
+              navigate("/schedule");
             }}
           >
             Schedule a Meeting
@@ -55,8 +54,8 @@ function Home() {
             rightIcon={<ArrowForwardIcon />}
             colorScheme="teal"
             variant="outline"
-            onClick={()=>{
-                navigate("/join")
+            onClick={() => {
+              navigate("/join");
             }}
           >
             Join Meeting
