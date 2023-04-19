@@ -41,7 +41,14 @@ function Schedule() {
         </FormControl>
         <FormControl isRequired>
           <FormLabel>Date and Time</FormLabel>
-          <Input _placeholder={{ color: "gray.500" }} type="datetime-local" />
+          <Input
+            _placeholder={{ color: "gray.500" }}
+            type="datetime-local"
+            name="dateandtime"
+            onChange={(e) => {
+              console.log(e.target.value);
+            }}
+          />
         </FormControl>
         <FormControl isRequired>
           <FormLabel>Duration</FormLabel>
@@ -51,7 +58,7 @@ function Schedule() {
             <option>60 min</option>
           </Select>
         </FormControl>
-        <FormControl >
+        <FormControl>
           <FormLabel>Invite Participant</FormLabel>
           <Input
             placeholder="abcd@gmail.com"

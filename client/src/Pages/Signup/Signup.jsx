@@ -13,6 +13,7 @@ import {
   Text,
   useColorModeValue,
   Link,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
@@ -21,7 +22,103 @@ import { useNavigate } from "react-router-dom";
 function Signup() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [inputState, setInputState] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const toast = useToast({ position: "top" });
 
+  const handleValuedInput = (e) => {
+    setInputState({
+      ...inputState,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const validateForm = ({ name, email, password }) => {
+    if (!name) {
+      toast({
+        title: `Name is required`,
+        status: "error",
+        isClosable: true,
+      });
+      return false;
+    }
+    if (!email) {
+      toast({
+        title: `Email is required`,
+        status: "error",
+        isClosable: true,
+      });
+      return false;
+    }
+    if (!email.includes("@")) {
+      toast({
+        title: `Enter valid email`,
+        status: "error",
+        isClosable: true,
+      });
+      return false;
+    }
+    if (!password) {
+      toast({
+        title: `Password is required`,
+        status: "error",
+        isClosable: true,
+      });
+      return false;
+    }
+    if (password.length < 8) {
+      toast({
+        title: `Password should be over 8 characters.`,
+        status: "error",
+        isClosable: true,
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleFormSubmit = async () => {
+    if (!validateForm(inputState)) return;
+
+    try {
+      setLoading(true);
+      // console.log(inputState)
+      let response = await fetch("http://localhost:8080/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(inputState),
+      });
+      let data = await response.json();
+      setLoading(false);
+      if (data.success) {
+        toast({
+          title: `Registration Successful`,
+          status: "success",
+          isClosable: true,
+        });
+        console.log(data);
+        setInputState({
+          name: "",
+          email: "",
+          password: "",
+        });
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: `Couldn't Post Data`,
+        status: "error",
+        isClosable: true,
+      });
+    }
+  };
   return (
     <Flex
       minH={"100vh"}
@@ -47,16 +144,30 @@ function Signup() {
           <Stack spacing={4}>
             <FormControl id="name" isRequired>
               <FormLabel>Name</FormLabel>
-              <Input type="text" />
+              <Input
+                type="text"
+                placeholder="Name"
+                name="name"
+                onChange={handleValuedInput}
+              />
             </FormControl>
             <FormControl id="email" isRequired>
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input
+                type="email"
+                placeholder="Enter email"
+                name="email"
+                onChange={handleValuedInput}
+              />
             </FormControl>
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? "text" : "password"} />
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  onChange={handleValuedInput}
+                />
                 <InputRightElement h={"full"}>
                   <Button
                     variant={"ghost"}
@@ -71,6 +182,7 @@ function Signup() {
             </FormControl>
             <Stack spacing={10} pt={2}>
               <Button
+                isLoading={loading}
                 loadingText="Submitting"
                 size="lg"
                 bg={"teal.400"}
@@ -78,6 +190,7 @@ function Signup() {
                 _hover={{
                   bg: "teal.500",
                 }}
+                onClick={handleFormSubmit}
               >
                 Sign up
               </Button>

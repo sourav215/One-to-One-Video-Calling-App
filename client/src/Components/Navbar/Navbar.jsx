@@ -22,7 +22,7 @@ const Links = [
 const NavLink = ({ title, path }) => <Link to={path}>{title}</Link>;
 
 const Navbar = () => {
-  const isAuth = false;
+  const isAuth = sessionStorage.getItem("accessToken") ? true : false;
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -44,6 +44,7 @@ const Navbar = () => {
             <HStack
               as={"nav"}
               spacing={20}
+              fontWeight={"semibold"}
               display={{ base: "none", md: "flex" }}
             >
               {Links.map(({ title, path }) => (

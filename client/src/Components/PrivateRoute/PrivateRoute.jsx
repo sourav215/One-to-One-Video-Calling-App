@@ -1,13 +1,12 @@
 import { Navigate } from "react-router-dom";
 
 function PrivateRoute({ children }) {
-  const { isAuth } =
-    JSON.parse(sessionStorage.getItem("videocallingapp")) || {};
+  const token = sessionStorage.getItem("accessToken");
 
-  if (!isAuth) {
+  if (!token) {
     return <Navigate to={"/login"} />;
   }
 
   return children;
 }
-export default PrivateRoute
+export default PrivateRoute;

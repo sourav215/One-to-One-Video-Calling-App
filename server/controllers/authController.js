@@ -13,28 +13,31 @@ const generateToken = ({ name, email, _id }) => {
 const registerNewUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
+
     if (!email || !password) {
       return res.status(500).send("email and password required");
     }
     if (!validator.isEmail(email)) {
       return res
-        .status(401)
+        .status(500)
         .send({ message: "email is not valid email address" });
     }
     if (!validator.isStrongPassword(password)) {
-      return res.status(401).send({ message: "Enter Strong Password" });
+      return res.status(500).send({ message: "Enter Strong Password" });
     }
+
     let user = await User.findOne({ email });
     if (user) {
-      return res.status(401).send({
+      return res.status(500).send({
         message: `User with this email ${email} already exists!`,
       });
     }
 
     let hashedPassword = await bcrypt.hash(password, 10);
-
+   
     await User.create({ name, email, password: hashedPassword });
     res.send({
+      success: true,
       message: "Registration Successful",
     });
   } catch (err) {
@@ -63,8 +66,10 @@ const loginUser = async (req, res) => {
 
     let token = generateToken(user);
     res.send({
+      success: true,
       message: "Login Successful",
       user: {
+        isAuth: true,
         name: user.name,
         email: user.email,
       },
