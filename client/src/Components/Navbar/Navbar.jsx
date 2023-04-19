@@ -14,7 +14,7 @@ import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
 const Links = [
   { title: "Home", path: "/" },
-  {title: "Login", path: "/login"},
+  // { title: "Login", path: "/login" },
   { title: "Schedule", path: "/schedule" },
   { title: "Join", path: "/join" },
 ];
@@ -22,6 +22,7 @@ const Links = [
 const NavLink = ({ title, path }) => <Link to={path}>{title}</Link>;
 
 const Navbar = () => {
+  const isAuth = false;
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -36,7 +37,7 @@ const Navbar = () => {
           <HStack spacing={8} alignItems={"center"}>
             <Box fontSize={"2xl"} fontWeight={"semibold"} color={"teal.600"}>
               {" "}
-              <Link  to={"/"} >Video Call App</Link>
+              <Link to={"/"}>Video Call App</Link>
             </Box>
           </HStack>
           <Flex alignItems={"center"}>
@@ -48,6 +49,11 @@ const Navbar = () => {
               {Links.map(({ title, path }) => (
                 <NavLink key={title} title={title} path={path} />
               ))}
+              {isAuth ? (
+                <NavLink key={"logout"} title={"Logout"} path={"/logout"} />
+              ) : (
+                <NavLink key={"login"} title={"Login"} path={"/login"} />
+              )}
             </HStack>
           </Flex>
           <IconButton
@@ -65,6 +71,11 @@ const Navbar = () => {
               {Links.map(({ title, path }) => (
                 <NavLink key={title} title={title} path={path} />
               ))}
+              {isAuth ? (
+                <NavLink key={"logout"} title={"Logout"} path={"/logout"} />
+              ) : (
+                <NavLink key={"login"} title={"Login"} path={"/login"} />
+              )}
             </Stack>
           </Box>
         ) : null}
