@@ -25,7 +25,7 @@ Database - MongoDB
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.\
-Deployed Link - https://remarkable-fairy-654e4c.netlify.app
+Deployed Link - https://one-on-one-video-call.vercel.app
 
 ## Backend (Server)
 
