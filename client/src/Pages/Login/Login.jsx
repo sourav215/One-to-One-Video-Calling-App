@@ -75,7 +75,7 @@ function Login() {
     try {
       setLoading(true);
 
-      let response = await fetch("http://localhost:8080/auth/login", {
+      let response = await fetch("https://videocallserver.onrender.com/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

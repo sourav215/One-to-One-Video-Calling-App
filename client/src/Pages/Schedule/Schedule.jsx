@@ -82,14 +82,17 @@ function Schedule() {
         "/room/" +
         uuidv4();
 
-      let response = await fetch("http://localhost:8080/meeting/schedule", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-        body: JSON.stringify({ ...inputState, meetingLink: meetingUrl }),
-      });
+      let response = await fetch(
+        "https://videocallserver.onrender.com/meeting/schedule",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+          },
+          body: JSON.stringify({ ...inputState, meetingLink: meetingUrl }),
+        }
+      );
       let data = await response.json();
       console.log(data);
       setLoading(false);

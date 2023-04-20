@@ -86,7 +86,7 @@ function Signup() {
     try {
       setLoading(true);
       // console.log(inputState)
-      let response = await fetch("http://localhost:8080/auth/register", {
+      let response = await fetch("https://videocallserver.onrender.com/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -11,7 +11,7 @@ function JoinMeeting() {
     try {
       setLoading(true);
 
-      let response = await fetch("http://localhost:8080/meeting/all", {
+      let response = await fetch("https://videocallserver.onrender.com/meeting/all", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
