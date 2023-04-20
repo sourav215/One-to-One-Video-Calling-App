@@ -143,6 +143,7 @@ function Login() {
               <Input
                 type="password"
                 name="password"
+                placeholder="Enter Password"
                 onChange={handleValuedInput}
               />
             </FormControl>
