@@ -9,46 +9,67 @@ import {
   GridItem,
   Container,
   Text,
+  Spinner,
+  useToast,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import MeetingCard from "../../Components/MeetingCard/MeetingCard";
 
 function JoinMeeting() {
+  const [loading, setLoading] = useState(true);
+  const [allMeeting, setAllMeeting] = useState([]);
+  const toast = useToast({ position: "top" });
+
+  const getAllUpcommingMeetings = async () => {
+    try {
+      setLoading(true);
+
+      let response = await fetch("http://localhost:8080/meeting/all", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+        },
+      });
+      let data = await response.json();
+      console.log(data);
+
+      if (data.success) {
+        setLoading(false);
+        console.log(data);
+        setAllMeeting(data.data);
+      }
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: `Couldn't Get Data`,
+        status: "error",
+        isClosable: true,
+      });
+    }
+  };
+  useEffect(() => {
+    getAllUpcommingMeetings();
+  }, []);
+  if (loading) {
+    return (
+      <Flex align={"center"} justify={"center"} p={"20"}>
+        <Spinner
+          alignItems={"center"}
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="teal.500"
+          size="xl"
+        />
+      </Flex>
+    );
+  }
   return (
-    <Box as={Container} maxW="7xl" mt={14} p={4}>
-      <Grid
-        templateColumns={{
-          base: "repeat(1, 1fr)",
-          sm: "repeat(2, 1fr)",
-          md: "repeat(2, 1fr)",
-        }}
-        gap={4}
-      >
-        <GridItem colSpan={1}>
-          <VStack alignItems="flex-start" spacing="20px">
-            <chakra.h2 fontSize="3xl" fontWeight="700">
-              Medium length title
-            </chakra.h2>
-            <Button colorScheme="green" size="md">
-              Join Now
-            </Button>
-          </VStack>
-        </GridItem>
-        <GridItem alignItems={"left"}>
-          {/* <Flex> */}
-          <Box textAlign={"left"}>
-          <chakra.p>
-              Provide your customers a story they would enjoy keeping in mind
-              the objectives of your website. Pay special attention to the tone
-              of voice.
-            </chakra.p>
-            <chakra.p>
-              Provide your customers 
-            </chakra.p>
-          </Box>
-            
-          {/* </Flex> */}
-        </GridItem>
-      </Grid>
-      <Divider mt={12} mb={12} />
+    <Box>
+      {allMeeting.map((elem, i) => {
+        return <MeetingCard elem={elem} key={i} />;
+      })}
     </Box>
   );
 }

@@ -11,27 +11,15 @@ function Home() {
   };
 
   return (
-    // <div className={styles.home}>
-    //   <h1>Home</h1>
-    //   <input
-    //     type="text"
-    //     placeholder="Enter room code"
-    //     onChange={handleInputChange}
-    //   />
-    //   <button
-    //     onClick={() => {
-    //       navigate(`/room/${input}`);
-    //     }}
-    //   >
-    //     Join
-    //   </button>
-    // </div>
     <Flex
-      align={"center"}
+      // align={"center"}
       justifyContent={"center"}
-      //   marginTop={"100px"}
+      paddingTop={"100px"}
       bg={"gray.50"}
       h={"90vh"}
+      backgroundImage={
+        "https://images.pexels.com/photos/4492129/pexels-photo-4492129.jpeg?auto=compress&cs=tinysrgb&w=720&h=750&dpr=2"
+      }
     >
       <Box>
         <Stack marginBottom={"80px"}>

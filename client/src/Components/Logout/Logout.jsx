@@ -9,7 +9,7 @@ function Logout() {
         colorScheme="teal"
         variant="solid"
         onClick={() => {
-          localStorage.removeItem("accessToken");
+          sessionStorage.removeItem("accessToken");
           navigate("/login");
         }}
       >

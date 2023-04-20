@@ -15,9 +15,30 @@ function AllRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/logout" element={<Logout />} />
-      <Route path="/schedule" element={<Schedule />} />
-      <Route path="/join" element={<JoinMeeting />} />
-      <Route path="/room/:roomID" element={<Room />} />
+      <Route
+        path="/schedule"
+        element={
+          <PrivateRoute>
+            <Schedule />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/join"
+        element={
+          <PrivateRoute>
+            <JoinMeeting />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/room/:roomID"
+        element={
+          <PrivateRoute>
+            <Room />
+          </PrivateRoute>
+        }
+      />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
