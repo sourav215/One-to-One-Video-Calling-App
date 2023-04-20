@@ -4,7 +4,6 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Checkbox,
   Stack,
   Link,
   Button,
@@ -13,11 +12,13 @@ import {
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { MyContext } from "../../Components/Context/ContexProvider";
 
 function Login() {
   const navigate = useNavigate();
+  const { toggleIsAuth } = useContext(MyContext);
   const [loading, setLoading] = useState(false);
   const [inputState, setInputState] = useState({
     email: "",
@@ -90,7 +91,8 @@ function Login() {
           status: "success",
           isClosable: true,
         });
-        // console.log(data);
+
+        toggleIsAuth(true);
         setInputState({
           email: "",
           password: "",

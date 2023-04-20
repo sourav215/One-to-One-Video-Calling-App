@@ -2,22 +2,20 @@ import {
   Box,
   VStack,
   Button,
-  Flex,
+  
   Divider,
   chakra,
   Grid,
   GridItem,
   Container,
-  Text,
-  Spinner,
-  useToast,
+
 } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 function MeetingCard({
   elem: { topic, meetingLink, hostEmail, participants, dateandtime, duration },
 }) {
-  const navigate = useNavigate();
+  
   return (
     <Box as={Container} maxW="7xl" mt={14} p={2} >
       <Grid

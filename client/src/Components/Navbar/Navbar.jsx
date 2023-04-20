@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import {MyContext} from '../Context/ContexProvider';
 
 import {
   Box,
@@ -22,7 +23,7 @@ const Links = [
 const NavLink = ({ title, path }) => <Link to={path}>{title}</Link>;
 
 const Navbar = () => {
-  const isAuth = sessionStorage.getItem("accessToken") ? true : false;
+  const {isAuth} = useContext(MyContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (

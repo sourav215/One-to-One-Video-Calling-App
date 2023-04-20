@@ -1,14 +1,12 @@
-import { useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Flex, Stack, Text, Link } from "@chakra-ui/react";
 import { ArrowForwardIcon, CalendarIcon } from "@chakra-ui/icons";
 
 function Home() {
   const navigate = useNavigate();
-  const [input, setInput] = useState("");
-  const handleInputChange = (e) => {
-    setInput(e.target.value);
-  };
+
+ 
 
   return (
     <Flex

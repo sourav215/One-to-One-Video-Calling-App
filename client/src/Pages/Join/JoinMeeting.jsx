@@ -1,17 +1,4 @@
-import {
-  Box,
-  VStack,
-  Button,
-  Flex,
-  Divider,
-  chakra,
-  Grid,
-  GridItem,
-  Container,
-  Text,
-  Spinner,
-  useToast,
-} from "@chakra-ui/react";
+import { Box, Flex, Spinner, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import MeetingCard from "../../Components/MeetingCard/MeetingCard";
 
@@ -32,11 +19,9 @@ function JoinMeeting() {
         },
       });
       let data = await response.json();
-      console.log(data);
 
       if (data.success) {
         setLoading(false);
-        console.log(data);
         setAllMeeting(data.data);
       }
     } catch (error) {
