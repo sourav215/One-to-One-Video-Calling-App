@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const MeetingSchema = new mongoose.Schema(
   {
     topic: { type: String },
+    meetingLink: { type: String, required: true },
     host: { type: mongoose.Types.ObjectId, ref: "User", require: true },
     hostEmail: { type: String, required: true },
     participants: [{ type: String, required: true }],
